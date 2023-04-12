@@ -6,7 +6,7 @@ using namespace std;
 
 void print_process_message(char char_of_process)
 {
-    cout << "Proceso " << char_of_process << " (PID: " << getpid() << " | PPID: " << getppid() << " )" << endl;
+    cout << "Proceso " << char_of_process << " ( PID: " << getpid() << " | PPID: " << getppid() << " )" << endl;
 }
 
 int main(int argc, char *argv[])

@@ -1,4 +1,3 @@
-
 import os
 import sys
 import time
@@ -20,26 +19,30 @@ def parent():
             pidE = os.getpid()
             print_process_message('E')
             time.sleep(30)
-            exit(0)
+            
+            os._exit(0)
         
         pidF = os.fork()
         if pidF == 0:
             pidF = os.getpid()
             print_process_message('F')
             time.sleep(30)
-            exit(0)
+            os._exit(0)
         
         time.sleep(30)
-        exit(0)
+        os.wait()
+        os.wait()
+        os._exit(0)
     
     pidC = os.fork()
     if pidC == 0:
         pidC = os.getpid()
         print_process_message('C')
         time.sleep(30)
-        exit(0)
+        os._exit(0)
     
     pidD = os.fork()
+
     if pidD == 0:
         pidD = os.getpid()
         print_process_message('D')
@@ -48,14 +51,17 @@ def parent():
             pidG = os.getpid()
             print_process_message('G')
             time.sleep(30)
-            exit(0)
+            os._exit(0)
         
         time.sleep(30)
-        exit(0)
+        os.wait()
+        os._exit(0)
     
+    os.wait()
+    os.wait()
+    os.wait()
     time.sleep(30)
+
     return 0
-    
-    
 
 parent()
