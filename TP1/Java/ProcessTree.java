@@ -13,7 +13,7 @@ public class ProcessTree
 
     int level = Integer.parseInt(args[1]);
     if (level == 2) 
-	{
+    {
       Thread.sleep(10000);
       return;
     }
@@ -23,7 +23,7 @@ public class ProcessTree
     Process childs[] = new Process[childrenNum];
 
     for (int i = 1; i <= childrenNum; i++) 
-	{
+    {
       ProcessBuilder pb =
           new ProcessBuilder(
               "java", "ProcessTree.java", String.valueOf(childrenNum - i), String.valueOf(level + 1));
@@ -32,7 +32,7 @@ public class ProcessTree
     }
     Thread.sleep(10000);
     for (int i = 0; i < childs.length; i++) 
-	{
+    {
       childs[i].waitFor();
     }
   }
