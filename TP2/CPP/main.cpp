@@ -64,7 +64,10 @@ class Matriz
   {
     for (int i = 0; i < this->orden_; i++) 
     {
-      C->matriz_[fila][i] = this->matriz_[fila][i] * B->matriz_[fila][i];
+      for (int j = 0; j < this->orden_; j++)
+      {
+         C->matriz_[fila][i] += this->matriz_[fila][j] * B->matriz_[j][i];
+      }
     }
   }
 
@@ -111,7 +114,11 @@ class Matriz
     {
       for (int j = 0; j < this->orden_; j++) 
       {
-        C->matriz_[i][j] = this->matriz_[i][j] * B->matriz_[i][j];
+        for (int k = 0; k < this->orden_; k++)
+        {
+          C->matriz_[i][j] += this->matriz_[i][k] * B->matriz_[k][j];
+        }
+        
       }
     }
     auto fin = std::chrono::high_resolution_clock::now();
