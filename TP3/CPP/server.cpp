@@ -1,11 +1,11 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
 #include <iostream>
 
 #define FIFO_PERMISSIONS 0666
 #define MKFIFO_ERROR -1
+#define OPEN_ERROR 0
 #define INFO_MAX_INIT_VALUE 0
 #define INFO_MIN_INIT_VALUE 2147483647
 #define INFO_AVERAGE_INIT_VALUE 0
@@ -36,20 +36,28 @@ int main()
   if (mkfifo(kFifoB, FIFO_PERMISSIONS) == MKFIFO_ERROR) 
   {
     perror("Error al crear el FIFO.");
-    return EXIT_FAILURE;
   }
 
   if (mkfifo(kFifoA, FIFO_PERMISSIONS) == MKFIFO_ERROR) 
   {
     perror("Error al crear el FIFO.");
+  }
+
+  if ((fileA = open(kFifoA, O_RDONLY)) < OPEN_ERROR)
+  {
+    perror("Error al abrir el FIFO A.");
     return EXIT_FAILURE;
   }
 
-  fileA = open(kFifoA, O_RDONLY);
-  fileB = open(kFifoB, O_WRONLY);
-
+  if ((fileB = open(kFifoB, O_WRONLY)) < OPEN_ERROR)
+  {
+    perror("Error al abrir el FIFO B.");
+    return EXIT_FAILURE;
+  }
+  
   read(fileA, &num, sizeof(int));
   InitInfo(&info, &num);
+
   for (int i = 0; i < info.amount; i++) 
   {
     read(fileA, &num, sizeof(int));
@@ -57,6 +65,7 @@ int main()
     TryChangeMin(&info, &num);
     IncrementAddition(&info, &num);
   }
+
   SetAverage(&info);
   write(fileB, &info, sizeof(Info));
 

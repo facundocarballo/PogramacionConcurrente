@@ -5,6 +5,7 @@
 #include <iostream>
 
 #define FIFO_PERMISSIONS 0666
+#define OPEN_ERROR 0
 #define POS_NUMBERS 1
 #define STR_INITIAL_POS 0
 #define STR_NEXT_POS 1
@@ -34,8 +35,17 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
 
-  fileA = open(kFifoA, O_WRONLY);
-  fileB = open(kFifoB, O_RDONLY);
+  if((fileA = open(kFifoA, O_WRONLY)) < OPEN_ERROR)
+  {
+    perror("Error al abrir el FIFO A.");
+    return EXIT_FAILURE;
+  }
+
+  if ((fileB = open(kFifoB, O_RDONLY)) < OPEN_ERROR)
+  {
+    perror("Error al abrir el FIFO B.");
+    return EXIT_FAILURE;
+  }
 
   // Send data
   SendAmountOfNumbers(argv[POS_NUMBERS]);
