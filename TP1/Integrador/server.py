@@ -1,3 +1,4 @@
+
 from Crypto.Cipher import AES
 from pathlib import Path
 import threading
@@ -45,7 +46,7 @@ SPACES_2 = "  "
 HEX_START_WITH = "0x"
 
 # Cipher
-CIPHER_PATH = './cypher.enc'
+CIPHER_PATH = './cipher.enc'
 IV_KEY = "Concurrencia!!!!".encode('utf-8').ljust(BYTES_16, b'\0')
 
 # Mutex
@@ -109,7 +110,7 @@ def encrypt_file(key, path, spaces):
         spaces: Is the amount of spaces that this function needs to print on the cypher.enc file.
     """
     # Create a cipher obj with AES Algorithm
-    cipher = AES.new(key, AES.MODE_CBC, IV_KEY)
+    cipher = AES.new(key.encode('utf-8', 'ignore'), AES.MODE_CBC, IV_KEY)
     
     # Read the entire file in bytes
     with open(path, FILE_READ_BYTE) as f:
@@ -173,7 +174,7 @@ def decrypt_file(key, ciphertext):
         key: Is the key that this function will use to decript the file.
         ciphertext: Is the hex code generetes on the encript file, but in bytes!!!
     """
-    cipher = AES.new(key, AES.MODE_CBC, IV_KEY)
+    cipher = AES.new(key.encode('utf-8', 'ignore'), AES.MODE_CBC, IV_KEY)
     descipher_text = cipher.decrypt(ciphertext)
 
     return descipher_text.decode('utf-8', 'ignore')
@@ -381,7 +382,7 @@ def main():
                 print("Error reading from FIFO_A: ", error)
                 break
 
-        # Check objectpstree
+        # Check object
         if obj != None and obj.module == ARG_DECRYPT:
             main_decrypt()
             fifo_write("Decryption done.")
