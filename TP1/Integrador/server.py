@@ -1,4 +1,3 @@
-
 from Crypto.Cipher import AES
 from pathlib import Path
 import threading
