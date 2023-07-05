@@ -17,3 +17,7 @@
     - Pasar mas argumentos de los necesarios. [BIEN]
 8. Ejecucion erronea.
     - Encriptar una carpeta con una clave y desencriptarla con otra [BIEN]
+9. Ejecucion erronea.
+    - Desencripar un archivo que no es el cipher.enc
+10. Ejecucion erronea.
+    - Ejecutar el cliente sin el servidor corriendo.

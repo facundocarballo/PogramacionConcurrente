@@ -73,11 +73,13 @@ def main():
         FIFO_A = os.open(FIFO_A_PATH, os.O_WRONLY | os.O_NONBLOCK)
     except OSError as error:
         print("Error opening the FIFO_A: ", error)
+        return
     
     try:
         FIFO_B = os.open(FIFO_B_PATH, os.O_RDONLY)
     except OSError as error:
         print("Error opening the FIFO_B: ", error)
+        return
     
     obj = Info(module, path, key)
 

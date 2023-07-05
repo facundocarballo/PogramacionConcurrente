@@ -99,6 +99,7 @@ def close_server(signal, frame):
     sys.exit(0)
 
 signal.signal(signal.SIGUSR1, close_server)
+signal.signal(signal.SIGINT, close_server)
 
 # Encrypt and Decrypt Functions
 def encrypt_file(key, path, spaces):
@@ -272,6 +273,10 @@ def check_obj():
     if obj.module == ARG_DECRYPT:
         if path.is_file() == False:
             fifo_write("To decrypt you have to send a cipher file.")
+            return
+        
+        if path != CIPHER_PATH:
+            fifo_write("The file has to be 'cipher.enc'.")
             return
         
         main_decrypt()
