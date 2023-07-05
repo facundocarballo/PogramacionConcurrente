@@ -235,6 +235,7 @@ def get_directory(line):
     directory_start = len(FILE_START_WITH) + spaces
     directory_end = str(line).find(FILE_END_WITH)
     directory = str(line)[directory_start:directory_end]
+
     return directory
 
 def get_ciphertext(line):
@@ -248,6 +249,44 @@ def get_ciphertext(line):
     ciphertext = str(line)[directory_start:len(line)]
     bytes_hex = bytes.fromhex(ciphertext)
     return bytes_hex
+
+def check_obj():
+    """
+    @description:
+        This function verify the object readed on the fifo.
+        Have to guaranteed that the object applies correctly our structure, otherwise will responde to the client with an error.
+    """
+    global obj
+    
+    if obj == None:
+        return
+    
+    path = Path(obj.path)
+
+    # Check real path
+    if path.exists() == False:
+        fifo_write("The path doesn't exist.")
+        return
+    
+    # Check decrypt
+    if obj.module == ARG_DECRYPT:
+        if path.is_file() == False:
+            fifo_write("To decrypt you have to send a cipher file.")
+            return
+        
+        main_decrypt()
+        fifo_write("Decryption done.")
+        return
+    
+    # Check encrypt
+    if obj.module == ARG_ENCRYPT:
+        if path.is_dir() == False:
+            fifo_write("To encrypt you have to send a folder.")
+            return
+            
+        main_encrypt()
+        fifo_write("Encryption done.")
+        return
 
 # Main functions
 def main_encrypt():
@@ -349,6 +388,7 @@ def fifo_write(msg):
     
     os.write(FIFO_B, str(msg).encode('utf-8', 'ignore'))
 
+# Main Function
 def main():
     """
     @description:
@@ -381,15 +421,6 @@ def main():
                 print("Error reading from FIFO_A: ", error)
                 break
 
-        # Check object
-        if obj != None and obj.module == ARG_DECRYPT:
-            main_decrypt()
-            fifo_write("Decryption done.")
-        
-        if obj != None and obj.module == ARG_ENCRYPT:
-            main_encrypt()
-            fifo_write("Ecryption done.")
-
-
+        check_obj()
 
 main()

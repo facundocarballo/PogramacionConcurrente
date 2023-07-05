@@ -1,0 +1,19 @@
+1. Ejecucion normal.
+    - Pasarle una carpeta existente al cifrador. [BIEN]
+    - Pasarle un archivo de cifrado existente al descifrador. [BIEN]
+2. Ejecucion erronea.
+    - Pasarle una carpeta inexistente al cifrador. [BIEN]
+3. Ejecucion erronea.
+    - Pasarle una carpeta existente al cifrador. [BIEN]
+    - Pasarle un archivo de cifrado inexistente al descifrador. [BIEN]
+4. Ejecucion erronea.
+    - Pasarle un archivo existente al cifrador. [BIEN]
+5. Ejecucion erronea.
+    - Pasarle una carpeta existente al cifrador. [BIEN]
+    - Pasarle una carpeta existente al descifrador. [BIEN]
+6. Ejecucion erronea.
+    - Pasar menos argumentos de los necesarios. [BIEN]
+7. Ejecucion erronea.
+    - Pasar mas argumentos de los necesarios. [BIEN]
+8. Ejecucion erronea.
+    - Encriptar una carpeta con una clave y desencriptarla con otra [BIEN]
