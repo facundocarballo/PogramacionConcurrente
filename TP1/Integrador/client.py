@@ -89,8 +89,6 @@ def main():
     # Write the obj on the FIFO_A
     os.write(FIFO_A, obj_bytes)
 
-    # aqui
-
     # Wait for server response
     status = os.read(FIFO_B, BYTES_1024)
 
