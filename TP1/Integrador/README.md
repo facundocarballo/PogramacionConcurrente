@@ -26,9 +26,12 @@ Here the server use only one thread to make this request.
 ## Where is implemented?
 📁 folder
 > This folder is an example folder for encrypt and decrypt some data.
+
 📄 client.py
 > This file contains all the code to run a client to encrypt or decrypt data.
+
 📄 M5.ipynb
 > Description of all project (in Spanish), how it's works and how run it. With examples.
+
 📄 server.py
 > This file contains all the code to run a server who will be the responsible to handle the decryption and encryption of the files.
